@@ -623,13 +623,26 @@ async def get_ad_creatives(ad_id: str, access_token: Optional[str] = None) -> st
     """
     if not ad_id:
         return json.dumps({"error": "No ad ID provided"}, indent=2)
-        
-    endpoint = f"{ad_id}/adcreatives"
-    params = {
-        "fields": "id,name,status,thumbnail_url,image_url,image_hash,object_story_spec,object_type,body,title,effective_object_story_id,asset_feed_spec,url_tags,image_urls_for_viewing,product_set_id,degrees_of_freedom_spec"
-    }
-    
-    data = await make_api_request(endpoint, access_token, params)
+
+    # Meta's Graph API does not expose an /{ad_id}/adcreatives edge. An ad has a
+    # single creative, fetched as a nested field on the ad node. We then wrap
+    # the result as {"data": [creative]} to preserve the historical shape that
+    # downstream callers (get_ad_image, get_ad_video, etc.) depend on.
+    endpoint = f"{ad_id}"
+    creative_fields = (
+        "id,name,status,thumbnail_url,image_url,image_hash,object_story_spec,"
+        "object_type,body,title,effective_object_story_id,asset_feed_spec,"
+        "url_tags,image_urls_for_viewing,product_set_id,degrees_of_freedom_spec"
+    )
+    params = {"fields": f"creative{{{creative_fields}}}"}
+
+    response = await make_api_request(endpoint, access_token, params)
+
+    if "error" in response:
+        return json.dumps(response, indent=2)
+
+    creative = response.get("creative")
+    data = {"data": [creative] if creative else []}
 
     if 'data' in data:
         # Resolve asset_feed_spec image hashes to URLs

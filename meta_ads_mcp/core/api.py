@@ -8,6 +8,31 @@ import httpx
 import asyncio
 import functools
 import os
+import re
+
+# Matches access_token=... and appsecret_proof=... in URLs and query strings,
+# stopping at the next param separator or string terminator.
+_TOKEN_PARAM_RE = re.compile(
+    r"(access_token|appsecret_proof)=[^&\s\"'\\]*",
+    flags=re.IGNORECASE,
+)
+
+
+def scrub_tokens(value: Any) -> Any:
+    """Recursively redact access_token / appsecret_proof from any structure.
+
+    Used before returning Graph API error payloads to clients — the raw
+    request URL Meta echoes back contains the token in the query string.
+    """
+    if isinstance(value, str):
+        return _TOKEN_PARAM_RE.sub(r"\1=[REDACTED]", value)
+    if isinstance(value, dict):
+        return {k: ("[REDACTED]" if k in ("access_token", "appsecret_proof") else scrub_tokens(v)) for k, v in value.items()}
+    if isinstance(value, list):
+        return [scrub_tokens(v) for v in value]
+    if isinstance(value, tuple):
+        return tuple(scrub_tokens(v) for v in value)
+    return value
 from . import auth
 from .auth import needs_authentication, auth_manager, start_callback_server, shutdown_callback_server
 from .utils import logger
@@ -259,28 +284,30 @@ async def make_api_request(
                 logger.warning(f"Detected authentication error ({e.response.status_code})")
                 auth_manager.invalidate_token()
             
-            # Include full details for technical users
+            # Include full details for technical users — but scrub tokens first.
+            # Both response.url and request.url contain access_token/appsecret_proof
+            # in the query string, and Graph API error bodies sometimes echo URLs too.
             full_response = {
                 "headers": dict(e.response.headers),
                 "status_code": e.response.status_code,
-                "url": str(e.response.url),
+                "url": scrub_tokens(str(e.response.url)),
                 "reason": getattr(e.response, "reason_phrase", "Unknown reason"),
                 "request_method": e.request.method,
-                "request_url": str(e.request.url)
+                "request_url": scrub_tokens(str(e.request.url)),
             }
-            
+
             # Return a properly structured error object
             return {
                 "error": {
                     "message": f"HTTP Error: {e.response.status_code}",
-                    "details": error_info,
-                    "full_response": full_response
+                    "details": scrub_tokens(error_info),
+                    "full_response": full_response,
                 }
             }
-        
+
         except Exception as e:
             logger.error(f"Request Error: {str(e)}")
-            return {"error": {"message": str(e)}}
+            return {"error": {"message": scrub_tokens(str(e))}}
 
 
 # Generic wrapper for all Meta API tools
