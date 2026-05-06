@@ -31,3 +31,6 @@ debug/
 
 internal/
 uv.lock
+
+# Local setup notes (infra references — never commit)
+SETUP_NOTES.md
