@@ -23,26 +23,26 @@ class TestGetAdCreativesBugFix:
     async def test_get_ad_creatives_regression_fix(self):
         """Regression test: ensure get_ad_creatives works correctly and doesn't throw 'dict' object is not callable."""
         
-        # Mock the make_api_request to return sample creative data
+        # Mock make_api_request to return the new shape: an ad node with a
+        # nested `creative` field (matches /{ad_id}?fields=creative{...}).
         sample_creative_data = {
-            "data": [
-                {
-                    "id": "123456789",
-                    "name": "Test Creative",
-                    "status": "ACTIVE",
-                    "thumbnail_url": "https://example.com/thumb.jpg",
-                    "image_url": "https://example.com/image.jpg",
-                    "image_hash": "abc123",
-                    "object_story_spec": {
-                        "page_id": "987654321",
-                        "link_data": {
-                            "image_hash": "abc123",
-                            "link": "https://example.com",
-                            "name": "Test Ad"
-                        }
+            "id": "120228922933270272",
+            "creative": {
+                "id": "123456789",
+                "name": "Test Creative",
+                "status": "ACTIVE",
+                "thumbnail_url": "https://example.com/thumb.jpg",
+                "image_url": "https://example.com/image.jpg",
+                "image_hash": "abc123",
+                "object_story_spec": {
+                    "page_id": "987654321",
+                    "link_data": {
+                        "image_hash": "abc123",
+                        "link": "https://example.com",
+                        "name": "Test Ad"
                     }
                 }
-            ]
+            }
         }
         
         with patch('meta_ads_mcp.core.ads.make_api_request', new_callable=AsyncMock) as mock_api:
