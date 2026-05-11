@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade — think ads uploader</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #7B2FBE;
+    --rule: #e7e7ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0d0b14; --fg: #f5f5f7; --muted: #a0a0a8; --rule: #2a2632; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 48px 24px 96px;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+  }
+  main { max-width: 720px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  h1 { font-size: 32px; font-weight: 800; margin: 0 0 8px; letter-spacing: -0.02em; }
+  .lead { color: var(--muted); margin: 0 0 32px; font-size: 15px; }
+  h2 {
+    font-size: 18px; font-weight: 700; margin: 32px 0 12px;
+    padding-top: 24px; border-top: 1px solid var(--rule);
+  }
+  h2:first-of-type { border-top: 0; padding-top: 0; }
+  p, li { font-size: 15px; }
+  ul { padding-left: 20px; }
+  code { font-size: 13px; background: rgba(123,47,190,0.08); padding: 1px 5px; border-radius: 4px; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+  a:hover { opacity: 0.7; }
+  footer { margin-top: 64px; color: var(--muted); font-size: 13px; }
+  .meta { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">think ads uploader</div>
+  <h1>Política de Privacidade</h1>
+  <p class="lead">Última atualização: 11 de maio de 2026</p>
+
+  <h2>1. Quem somos</h2>
+  <p>
+    O <strong>think ads uploader</strong> é uma aplicação interna da
+    <strong>think• Marketing &amp; Tecnologia</strong> (think Company,
+    <a href="https://thinkcompany.com.br" target="_blank" rel="noopener">thinkcompany.com.br</a>),
+    sediada em Campinas, SP, Brasil. A aplicação é operada exclusivamente pela equipe de
+    Growth da think• e pelos clientes que nos contrataram para gestão de mídia paga.
+  </p>
+
+  <h2>2. Para que serve esta aplicação</h2>
+  <p>
+    O <code>think ads uploader</code> automatiza a criação, leitura e relatório de
+    campanhas publicitárias dentro das contas de anúncio dos clientes da think• no
+    Meta (Facebook, Instagram, WhatsApp). É uma ferramenta de produtividade interna —
+    <strong>não há cadastro público, não há usuários finais, não há produto voltado
+    ao consumidor</strong>. Acesso é restrito a operadores autorizados via Users do
+    sistema (System Users) configurados no Meta Business Manager.
+  </p>
+
+  <h2>3. Quais dados acessamos</h2>
+  <p>
+    Por meio da Marketing API do Meta, a aplicação acessa estritamente:
+  </p>
+  <ul>
+    <li>Estrutura das campanhas, conjuntos de anúncios e anúncios das contas autorizadas;</li>
+    <li>Métricas agregadas de desempenho (impressões, cliques, gasto, conversões, CTR, CPC, CPL);</li>
+    <li>Criativos (textos, imagens, vídeos) submetidos pela própria think• ou por seus clientes;</li>
+    <li>Segmentações declaradas (interesses, localização, idade, gênero) configuradas nas campanhas.</li>
+  </ul>
+  <p>
+    A aplicação <strong>não coleta dados pessoais de usuários finais</strong> (leads,
+    visitantes, audiências). Dados de leads gerados pelas campanhas são tratados
+    diretamente pelas plataformas de destino dos clientes (CRMs, planilhas, WhatsApp
+    Business) — fora do escopo desta aplicação.
+  </p>
+
+  <h2>4. Como esses dados são usados</h2>
+  <ul>
+    <li>Operação técnica de campanhas (criar, pausar, editar anúncios sob supervisão humana);</li>
+    <li>Geração de relatórios de performance internos e para os clientes da think•;</li>
+    <li>Otimização de eficiência (CPL, CTR) com base no histórico de campanhas.</li>
+  </ul>
+  <p>Dados não são utilizados para perfilamento, marketing direcionado a terceiros, nem
+  para qualquer outra finalidade fora do escopo da relação contratual entre think• e
+  seus clientes.</p>
+
+  <h2>5. Compartilhamento</h2>
+  <p>Os dados acessados pela aplicação são compartilhados exclusivamente com:</p>
+  <ul>
+    <li>O cliente proprietário da conta de anúncios (todos os dados acessados são originalmente dele);</li>
+    <li>A Meta Platforms, Inc., como parte natural da operação da Marketing API;</li>
+    <li>Infraestrutura de hospedagem (Railway, Inc. — <a href="https://railway.com/legal/privacy" target="_blank" rel="noopener">privacy policy</a>) para execução do serviço.</li>
+  </ul>
+  <p>Não há venda, troca ou cessão de dados a terceiros fora desta cadeia operacional.</p>
+
+  <h2>6. Retenção</h2>
+  <p>
+    A aplicação <strong>não persiste dados pessoais ou identificáveis em base
+    própria</strong>. Dados de campanhas são lidos sob demanda diretamente da Marketing
+    API do Meta. Logs operacionais (timestamps de chamadas, IDs de objetos criados)
+    são armazenados localmente em equipamento da think• por até 12 meses, com finalidade
+    exclusiva de auditoria e troubleshooting.
+  </p>
+
+  <h2>7. Segurança</h2>
+  <ul>
+    <li>Autenticação via System User Token de longa duração emitido pelo Meta Business Manager;</li>
+    <li>Comunicação criptografada (HTTPS / TLS 1.3) entre cliente, servidor e Meta;</li>
+    <li><code>appsecret_proof</code> habilitado em todas as chamadas server-to-server;</li>
+    <li>Tokens armazenados em cofre de senhas (Apple Senhas) e variáveis de ambiente
+        gerenciadas (Railway Secrets); nunca em código-fonte;</li>
+    <li>Acesso ao código auditável: repositório
+        <a href="https://github.com/lucasgimenezthink/meta-ads-mcp" target="_blank" rel="noopener">github.com/lucasgimenezthink/meta-ads-mcp</a>.</li>
+  </ul>
+
+  <h2>8. Direitos do titular (LGPD)</h2>
+  <p>
+    Como a aplicação não trata dados pessoais de usuários finais diretamente, qualquer
+    titular cujos dados constem em campanhas operadas pela think• deve dirigir suas
+    solicitações de exercício de direitos (Art. 18, Lei 13.709/2018) ao cliente
+    contratante diretamente. A think• atua como operadora nos termos da LGPD e
+    cooperará com o controlador (cliente) em qualquer demanda.
+  </p>
+
+  <h2>9. Cookies e rastreamento</h2>
+  <p>
+    Esta página de política de privacidade <strong>não usa cookies, scripts de
+    rastreamento, fingerprinting ou analytics</strong>. É HTML estático servido via
+    GitHub Pages.
+  </p>
+
+  <h2>10. Alterações</h2>
+  <p>
+    Esta política pode ser atualizada a qualquer momento. A data no topo desta página
+    indica a última revisão. Mudanças materiais serão comunicadas aos clientes da think•
+    diretamente.
+  </p>
+
+  <h2>11. Contato</h2>
+  <p>
+    Lucas Gimenez — Head of Growth, think•<br>
+    <a href="mailto:lucas.gimenez@thinkcompany.com.br">lucas.gimenez@thinkcompany.com.br</a><br>
+    Campinas, SP, Brasil.
+  </p>
+
+  <footer>
+    <p class="meta">
+      think• Marketing &amp; Tecnologia · CNPJ disponível sob solicitação ·
+      <a href="https://thinkcompany.com.br" target="_blank" rel="noopener">thinkcompany.com.br</a>
+    </p>
+  </footer>
+</main>
+</body>
+</html>
