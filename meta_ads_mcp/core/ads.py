@@ -629,10 +629,13 @@ async def get_ad_creatives(ad_id: str, access_token: Optional[str] = None) -> st
     # the result as {"data": [creative]} to preserve the historical shape that
     # downstream callers (get_ad_image, get_ad_video, etc.) depend on.
     endpoint = f"{ad_id}"
+    # NOTE: `image_urls_for_viewing` is NOT a Meta Graph API field — it's
+    # computed locally by extract_creative_image_urls() further down. Asking
+    # the Graph for it returns: (#100) Tried accessing nonexisting field.
     creative_fields = (
         "id,name,status,thumbnail_url,image_url,image_hash,object_story_spec,"
         "object_type,body,title,effective_object_story_id,asset_feed_spec,"
-        "url_tags,image_urls_for_viewing,product_set_id,degrees_of_freedom_spec"
+        "url_tags,product_set_id,degrees_of_freedom_spec"
     )
     params = {"fields": f"creative{{{creative_fields}}}"}
 
